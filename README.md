@@ -31,6 +31,7 @@ This lab focuses on **causal reasoning and revenue ownership**, rather than vani
 ---
 
 ## Project Structure
+```
 marketing-analytics-causal-ltv-lab/
 ├── src/                              # Main source code
 │   ├── evaluation/                    # Business & model evaluation logic
@@ -97,6 +98,7 @@ marketing-analytics-causal-ltv-lab/
 ├── requirements.txt                   # Python dependencies
 ├── pyproject.toml                     # Project configuration
 └── README.md
+```
 
 ## Modules & Capabilities
 
