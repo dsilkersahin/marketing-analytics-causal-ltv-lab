@@ -32,23 +32,46 @@ This lab focuses on **causal reasoning and revenue ownership**, rather than vani
 
 ## Project Structure
 marketing-analytics-causal-ltv-lab/
-│
-├── data/
-│ ├── raw/
-│ ├── processed/
-│ └── synthetic_data_generator.py
-│
-├── notebooks/
-│
-├── src/
-│ ├── data/
-│ ├── modeling/
-│ ├── evaluation/
-│ └── visualization/
-│
-├── experiments/
-├── reports/
-└── README.md
+- environment.yml
+- requirements.txt
+- README.md
+
+- data/
+	- synthetic_data_generator.py
+	- raw/
+	- processed/
+
+- experiments/
+	- config.yaml
+	- experiment_tracking.md
+
+- notebooks/
+
+- reports/
+	- business_case_notes.md
+	- executive_summary.md
+
+- src/
+	- data/
+		- loader.py
+		- preprocessing.py
+		- feature_engineering.py
+	- evaluation/
+		- kpi_simulation.py
+		- retention_metrics.py
+		- revenue_simulator.py
+		- uplift_metrics.py
+	- modeling/
+		- churn_model.py
+		- did_model.py
+		- ltv_model.py
+		- mmm_model.py
+		- uplift_model.py
+	- visualization/
+		- cohort_plots.py
+		- kpi_tree.py
+		- mmm_plots.py
+		- uplift_curves.py
 
 ---
 
