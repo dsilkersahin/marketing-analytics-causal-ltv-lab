@@ -32,48 +32,71 @@ This lab focuses on **causal reasoning and revenue ownership**, rather than vani
 
 ## Project Structure
 marketing-analytics-causal-ltv-lab/
-- environment.yml
-- requirements.txt
-- README.md
-
-- data/
-	- synthetic_data_generator.py
-	- raw/
-	- processed/
-
-- experiments/
-	- config.yaml
-	- experiment_tracking.md
-
-- notebooks/
-
-- reports/
-	- business_case_notes.md
-	- executive_summary.md
-
-- src/
-	- data/
-		- loader.py
-		- preprocessing.py
-		- feature_engineering.py
-	- evaluation/
-		- kpi_simulation.py
-		- retention_metrics.py
-		- revenue_simulator.py
-		- uplift_metrics.py
-	- modeling/
-		- churn_model.py
-		- did_model.py
-		- ltv_model.py
-		- mmm_model.py
-		- uplift_model.py
-	- visualization/
-		- cohort_plots.py
-		- kpi_tree.py
-		- mmm_plots.py
-		- uplift_curves.py
-
----
+├── src/                              # Main source code
+│   ├── evaluation/                    # Business & model evaluation logic
+│   │   ├── uplift_metrics.py          # Qini, uplift curves, CATE evaluation
+│   │   ├── retention_metrics.py       # Retention & survival metrics
+│   │   ├── kpi_simulation.py          # KPI sensitivity & what-if analysis
+│   │   └── revenue_simulator.py       # Incremental revenue simulation
+│   │
+│   ├── models/                        # Model implementations
+│   │   ├── ltv/                       # Lifetime value models
+│   │   │   ├── regression.py          # LTV regression models
+│   │   │   ├── feature_pipeline.py    # Early behavior feature engineering
+│   │   │   └── segmentation.py        # LTV-based user segmentation
+│   │   │
+│   │   ├── churn/                     # Retention & churn models
+│   │   │   ├── classification.py      # Churn classification models
+│   │   │   └── survival.py            # Survival analysis (Kaplan-Meier, Cox)
+│   │   │
+│   │   ├── uplift/                    # Uplift modeling
+│   │   │   ├── t_learner.py           # T-learner implementation
+│   │   │   ├── x_learner.py           # X-learner implementation
+│   │   │   └── causal_forest.py       # Causal forest approach
+│   │   │
+│   │   ├── causal/                    # Causal inference methods
+│   │   │   ├── difference_in_differences.py  # DiD implementation
+│   │   │   ├── propensity_matching.py        # PSM
+│   │   │   └── synthetic_control.py          # Synthetic control method
+│   │   │
+│   │   └── mmm/                       # Media Mix Modeling
+│   │       ├── adstock.py             # Adstock transformation
+│   │       ├── saturation.py          # Diminishing returns modeling
+│   │       └── bayesian_mmm.py        # Bayesian MMM (PyMC)
+│   │
+│   ├── preprocessing/                 # Data preprocessing utilities
+│   │   ├── cohort_builder.py          # Cohort construction logic
+│   │   ├── feature_engineering.py     # Marketing feature pipelines
+│   │   ├── spend_transformations.py   # Adstock & scaling transforms
+│   │   └── splitting.py               # Time-aware data splits
+│   │
+│   └── utils/                         # Utility functions
+│       ├── config.py                  # Configuration management
+│       ├── plotting.py                # Executive-style visualizations
+│       └── reproducibility.py         # Random seed & experiment control
+│
+├── notebooks/                         # Jupyter notebooks for analysis
+│   ├── 01_cohort_retention.ipynb      # Cohort & retention analysis
+│   ├── 02_ltv_prediction.ipynb        # LTV modeling & CAC simulation
+│   ├── 03_uplift_modeling.ipynb       # Uplift modeling experiments
+│   ├── 04_difference_in_differences.ipynb  # Campaign incrementality
+│   ├── 05_kpi_optimization.ipynb      # KPI tree & sensitivity analysis
+│   └── 06_media_mix_model.ipynb       # Budget allocation modeling
+│
+├── data/                              # Data directory
+│   ├── raw/                           # Original datasets
+│   ├── processed/                     # Cleaned datasets
+│   └── synthetic/                     # Synthetic marketing datasets
+│
+├── experiments/                       # Experiment results & tracking logs
+├── reports/                           # Business summaries & insights
+│   ├── executive_summary.md
+│   └── revenue_impact_report.md
+│
+├── tests/                             # Unit tests for core modules
+├── requirements.txt                   # Python dependencies
+├── pyproject.toml                     # Project configuration
+└── README.md
 
 ## Modules & Capabilities
 
