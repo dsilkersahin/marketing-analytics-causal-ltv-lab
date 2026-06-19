@@ -1,0 +1,15 @@
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+scikit-learn
+xgboost
+lightgbm
+lifelines
+statsmodels
+econml
+causalml
+pymc
+pyyaml
+jupyter

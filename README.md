@@ -2,168 +2,413 @@
 
 ## Overview
 
-This repository demonstrates applied marketing analytics and AdTech modeling techniques focused on:
+This repository demonstrates applied marketing analytics, experimentation, causal inference, and growth modeling techniques focused on measuring true business impact rather than observational correlation.
 
-- Incremental revenue estimation
-- Uplift modeling
-- Cohort & retention analysis
-- Lifetime value (LTV) prediction
-- Difference-in-Differences (DiD)
-- Media Mix Modeling (MMM)
-- KPI optimization frameworks
+Core topics include:
 
-The objective is to simulate real-world AdTech and Growth Analytics decision-making scenarios using reproducible pipelines and business-oriented evaluation metrics.
+* Cohort & retention analysis
+* Customer Lifetime Value (LTV) prediction
+* Churn modeling & survival analysis
+* A/B testing & experimentation
+* Uplift modeling
+* Causal inference
+* Difference-in-Differences (DiD)
+* Synthetic Control
+* Media Mix Modeling (MMM)
+* Budget allocation & KPI optimization
+
+The repository combines real-world datasets and synthetic simulations to reproduce common marketing analytics challenges such as selection bias, treatment leakage, seasonality, attribution errors, multicollinearity, and experiment design pitfalls.
+
+The objective is to simulate real-world Growth Analytics, Marketing Science, and AdTech decision-making environments using reproducible pipelines, business-oriented evaluation metrics, and causal reasoning frameworks.
 
 ---
 
 ## Business Motivation
 
-Modern marketing analytics requires moving beyond correlation and optimizing for:
+Modern growth and marketing organizations must answer questions that go beyond prediction:
 
-- Incremental revenue
-- Sustainable retention
-- Efficient CAC allocation
-- Budget optimization
-- Campaign incrementality
+* Did the campaign actually cause incremental revenue?
+* Which customers should receive incentives?
+* How should marketing budgets be allocated?
+* Which acquisition channels generate sustainable long-term value?
+* How can experimentation be trusted at scale?
 
-This lab focuses on **causal reasoning and revenue ownership**, rather than vanity metrics.
+This lab focuses on measuring causal impact and business value through a combination of experimentation, causal inference, predictive modeling, and optimization frameworks.
+
+All analyses are evaluated through business KPIs such as:
+
+* Incremental revenue
+* Incremental conversions
+* Customer Lifetime Value (LTV)
+* Retention
+* CAC efficiency
+* Marketing ROI
 
 ---
 
 ## Project Structure
-```
+
+```text
 marketing-analytics-causal-ltv-lab/
-├── src/                              # Main source code
-│   ├── evaluation/                    # Business & model evaluation logic
-│   │   ├── uplift_metrics.py          # Qini, uplift curves, CATE evaluation
-│   │   ├── retention_metrics.py       # Retention & survival metrics
-│   │   ├── kpi_simulation.py          # KPI sensitivity & what-if analysis
-│   │   └── revenue_simulator.py       # Incremental revenue simulation
-│   │
-│   ├── models/                        # Model implementations
-│   │   ├── ltv/                       # Lifetime value models
-│   │   │   ├── regression.py          # LTV regression models
-│   │   │   ├── feature_pipeline.py    # Early behavior feature engineering
-│   │   │   └── segmentation.py        # LTV-based user segmentation
-│   │   │
-│   │   ├── churn/                     # Retention & churn models
-│   │   │   ├── classification.py      # Churn classification models
-│   │   │   └── survival.py            # Survival analysis (Kaplan-Meier, Cox)
-│   │   │
-│   │   ├── uplift/                    # Uplift modeling
-│   │   │   ├── t_learner.py           # T-learner implementation
-│   │   │   ├── x_learner.py           # X-learner implementation
-│   │   │   └── causal_forest.py       # Causal forest approach
-│   │   │
-│   │   ├── causal/                    # Causal inference methods
-│   │   │   ├── difference_in_differences.py  # DiD implementation
-│   │   │   ├── propensity_matching.py        # PSM
-│   │   │   └── synthetic_control.py          # Synthetic control method
-│   │   │
-│   │   └── mmm/                       # Media Mix Modeling
-│   │       ├── adstock.py             # Adstock transformation
-│   │       ├── saturation.py          # Diminishing returns modeling
-│   │       └── bayesian_mmm.py        # Bayesian MMM (PyMC)
-│   │
-│   ├── preprocessing/                 # Data preprocessing utilities
-│   │   ├── cohort_builder.py          # Cohort construction logic
-│   │   ├── feature_engineering.py     # Marketing feature pipelines
-│   │   ├── spend_transformations.py   # Adstock & scaling transforms
-│   │   └── splitting.py               # Time-aware data splits
-│   │
-│   └── utils/                         # Utility functions
-│       ├── config.py                  # Configuration management
-│       ├── plotting.py                # Executive-style visualizations
-│       └── reproducibility.py         # Random seed & experiment control
+
+├── src/
 │
-├── notebooks/                         # Jupyter notebooks for analysis
-│   ├── 01_cohort_retention.ipynb      # Cohort & retention analysis
-│   ├── 02_ltv_prediction.ipynb        # LTV modeling & CAC simulation
-│   ├── 03_uplift_modeling.ipynb       # Uplift modeling experiments
-│   ├── 04_difference_in_differences.ipynb  # Campaign incrementality
-│   ├── 05_kpi_optimization.ipynb      # KPI tree & sensitivity analysis
-│   └── 06_media_mix_model.ipynb       # Budget allocation modeling
+│   ├── evaluation/
+│   │   ├── uplift_metrics.py
+│   │   ├── retention_metrics.py
+│   │   ├── kpi_simulation.py
+│   │   └── revenue_simulator.py
+│   │
+│   ├── models/
+│   │
+│   │   ├── ltv/
+│   │   │   ├── regression.py
+│   │   │   ├── feature_pipeline.py
+│   │   │   └── segmentation.py
+│   │   │
+│   │   ├── churn/
+│   │   │   ├── classification.py
+│   │   │   └── survival.py
+│   │   │
+│   │   ├── experimentation/
+│   │   │   ├── ab_test.py
+│   │   │   ├── power_analysis.py
+│   │   │   ├── cuped.py
+│   │   │   ├── sequential_testing.py
+│   │   │   └── srm_detection.py
+│   │   │
+│   │   ├── uplift/
+│   │   │   ├── t_learner.py
+│   │   │   ├── x_learner.py
+│   │   │   └── causal_forest.py
+│   │   │
+│   │   ├── causal/
+│   │   │   ├── difference_in_differences.py
+│   │   │   ├── propensity_matching.py
+│   │   │   └── synthetic_control.py
+│   │   │
+│   │   └── mmm/
+│   │       ├── adstock.py
+│   │       ├── saturation.py
+│   │       └── bayesian_mmm.py
+│   │
+│   ├── preprocessing/
+│   │   ├── cohort_builder.py
+│   │   ├── feature_engineering.py
+│   │   ├── spend_transformations.py
+│   │   └── splitting.py
+│   │
+│   └── utils/
+│       ├── config.py
+│       ├── plotting.py
+│       └── reproducibility.py
 │
-├── data/                              # Data directory
-│   ├── raw/                           # Original datasets
-│   ├── processed/                     # Cleaned datasets
-│   └── synthetic/                     # Synthetic marketing datasets
+├── notebooks/
+│   ├── 01_cohort_retention.ipynb
+│   ├── 02_ltv_prediction.ipynb
+│   ├── 03_ab_testing.ipynb
+│   ├── 04_uplift_modeling.ipynb
+│   ├── 05_difference_in_differences.ipynb
+│   ├── 06_media_mix_model.ipynb
+│   └── 07_budget_optimization.ipynb
 │
-├── experiments/                       # Experiment results & tracking logs
-├── reports/                           # Business summaries & insights
+├── data/
+│   ├── raw/
+│   │   ├── digital_wallet_ltv_dataset.csv
+│   │   ├── marketing_ab_testing.csv
+│   │   └── criteo_uplift.csv
+│   │
+│   ├── processed/
+│   │
+│   └── synthetic/
+│       ├── synthetic_mmm_weekly.csv
+│       ├── synthetic_did_regions.csv
+│       ├── synthetic_ab_edge_cases.csv
+│       └── synthetic_marketing_environment.csv
+│
+├── experiments/
+│
+├── reports/
 │   ├── executive_summary.md
-│   └── revenue_impact_report.md
+│   ├── revenue_impact_report.md
+│   └── business_recommendations.md
 │
-├── tests/                             # Unit tests for core modules
-├── requirements.txt                   # Python dependencies
-├── pyproject.toml                     # Project configuration
+├── tests/
+│
+├── requirements.txt
+├── pyproject.toml
 └── README.md
 ```
+
+---
+
+## Data Sources
+
+The project combines real-world public datasets with synthetic simulations.
+
+### Real Datasets
+
+#### Digital Wallet LTV Dataset
+
+Used for:
+
+* Cohort analysis
+* Retention analysis
+* Customer segmentation
+* Churn prediction
+* LTV modeling
+
+Key fields include:
+
+* Transaction behavior
+* Engagement metrics
+* Loyalty activity
+* Customer satisfaction
+* Historical LTV
+
+#### Criteo Uplift Dataset
+
+Used for:
+
+* Treatment effect estimation
+* Incrementality analysis
+* Uplift modeling
+* CATE estimation
+
+#### Marketing A/B Testing Dataset
+
+Used for:
+
+* Experiment analysis
+* Conversion lift estimation
+* Statistical testing
+* Experiment validation
+
+### Synthetic Datasets
+
+Several synthetic datasets are generated to reproduce scenarios rarely available in public data.
+
+Examples include:
+
+* Weekly marketing channel spend
+* Campaign interventions
+* Geographic experiments
+* Treatment assignment
+* Incrementality scenarios
+* Budget allocation simulations
+
+---
 
 ## Modules & Capabilities
 
 ### 1. Cohort & Retention Analysis
-- Monthly cohort retention matrices
-- Channel-based retention comparison
-- Kaplan-Meier survival curves
-- Revenue decay modeling
+
+* Monthly cohort retention matrices
+* Retention curves
+* Revenue retention analysis
+* Kaplan-Meier survival estimation
+* Retention decomposition by acquisition channel
 
 ### 2. LTV Prediction
-- Early behavior feature engineering (first 7–14 days)
-- 180-day LTV regression modeling
-- Customer segmentation by predicted LTV
-- CAC vs LTV profitability simulation
 
-### 3. Uplift Modeling
-- T-Learner and X-Learner implementations
-- Conditional Average Treatment Effect (CATE)
-- Qini curve and uplift curve evaluation
-- Incremental revenue targeting simulation
+* Early behavior feature engineering
+* LTV regression models
+* Customer segmentation
+* CAC-to-LTV profitability analysis
+* Revenue forecasting by customer segment
 
-### 4. Difference-in-Differences (DiD)
-- Campaign incrementality analysis
-- Parallel trend validation
-- Confidence interval estimation
-- ROI calculation
+### 3. Churn Modeling
 
-### 5. Media Mix Modeling (MMM)
-- Adstock transformation
-- Diminishing returns modeling
-- Channel elasticity estimation
-- Budget reallocation simulation
+* Churn classification
+* Survival analysis
+* Hazard estimation
+* Retention intervention targeting
+* Churn risk segmentation
+
+### 4. A/B Testing & Experimentation
+
+* Frequentist hypothesis testing
+* Power analysis
+* Sample size estimation
+* CUPED variance reduction
+* Sequential testing
+* Sample Ratio Mismatch (SRM) detection
+
+### 5. Uplift Modeling
+
+* T-Learner
+* X-Learner
+* Causal Forest
+* Conditional Average Treatment Effect (CATE)
+* Uplift targeting simulations
+* Incremental revenue optimization
+
+### 6. Causal Inference
+
+* Difference-in-Differences
+* Propensity Score Matching
+* Synthetic Control
+* Incrementality measurement
+* Policy and intervention evaluation
+
+### 7. Media Mix Modeling (MMM)
+
+* Adstock transformation
+* Saturation modeling
+* Bayesian MMM
+* Channel elasticity estimation
+* Marketing attribution analysis
+* Budget allocation optimization
+
+### 8. KPI Optimization
+
+* Revenue sensitivity analysis
+* KPI trees
+* Scenario simulation
+* Marketing budget optimization
+* Executive-level impact estimation
+
+---
+
+## Edge Cases & Pitfalls Covered
+
+The repository intentionally reproduces common analytical mistakes and business challenges.
+
+### Experimentation
+
+* Underpowered experiments
+* Sample Ratio Mismatch (SRM)
+* Peeking bias
+* Multiple hypothesis testing
+* Novelty effects
+* Instrumentation failures
+
+### Causal Inference
+
+* Selection bias
+* Confounding variables
+* Parallel trend violations
+* Treatment contamination
+* Hidden confounders
+
+### Media Mix Modeling
+
+* Multicollinearity
+* Adstock effects
+* Saturation effects
+* Delayed channel impact
+* Seasonality leakage
+* Budget shocks
+
+### LTV & Churn
+
+* Feature leakage
+* Survivorship bias
+* Incomplete cohorts
+* Data drift
+* Target leakage
 
 ---
 
 ## Business Simulation Framework
 
-This lab includes revenue simulation utilities to evaluate:
+The repository contains simulation utilities that evaluate business decisions rather than only model performance.
 
-- Blanket targeting vs uplift-based targeting
-- Retention campaign profitability
-- Channel-based CAC efficiency
-- Budget reallocation impact on total revenue
+Examples include:
 
-All evaluations are framed in terms of **incremental revenue impact**.
+* Blanket targeting vs uplift targeting
+* Retention campaign profitability
+* CAC efficiency by acquisition channel
+* Revenue impact of churn reduction
+* Incremental revenue estimation
+* Marketing budget reallocation
+
+All evaluations are framed through business outcomes rather than solely predictive metrics.
 
 ---
 
 ## Example Business Questions Addressed
 
-- Which acquisition channel produces the highest long-term LTV?
-- What is the incremental ROI of paid search?
-- Should discounts be given to all users or only high-uplift segments?
-- How does improving retention by 3% impact total revenue?
-- What is the optimal marketing budget distribution across channels?
+### Experimentation
+
+* Is the observed lift statistically significant?
+* Is the lift practically meaningful?
+* Was the experiment correctly randomized?
+* Can the results be trusted?
+
+### Causal Inference
+
+* What is the true incremental impact of a campaign?
+* Which users convert because of the intervention?
+* What would have happened without the treatment?
+
+### Growth Analytics
+
+* Which acquisition channels generate the highest long-term value?
+* Which customers should receive retention incentives?
+* Which users should receive discounts?
+
+### Media Mix Modeling
+
+* What is the ROI of each marketing channel?
+* Which channels drive the strongest marginal returns?
+* How should marketing budgets be redistributed?
+
+### Executive Decision Making
+
+* What is the revenue impact of increasing retention by 3%?
+* What is the expected value of a new retention campaign?
+* How should a fixed marketing budget be allocated?
+
+---
+
+## Learning Objectives
+
+This repository is designed to provide hands-on experience with:
+
+* Marketing Analytics
+* Growth Analytics
+* Product Analytics
+* Experimentation Platforms
+* Causal Inference
+* Bayesian Modeling
+* Customer Lifetime Value Modeling
+* Marketing Science
+* Decision Intelligence
+
+The focus is not only on building models, but also on understanding when models fail, how bias is introduced, and how to make reliable business decisions under uncertainty.
 
 ---
 
 ## Installation
 
-Create a virtual environment:
-
 ```bash
 python -m venv venv
-source venv/bin/activate        # Mac/Linux
-venv\Scripts\activate           # Windows
+
+source venv/bin/activate      # Mac/Linux
+venv\Scripts\activate         # Windows
 
 pip install -r requirements.txt
+```
+
+---
+
+## Future Extensions
+
+Planned additions:
+
+* Multi-touch attribution modeling
+* Double Machine Learning (DML)
+* Bayesian A/B testing
+* Thompson Sampling
+* Contextual Bandits
+* Reinforcement Learning for budget allocation
+* Causal Graphs (DAGs)
+* Marketing Mix Optimization
+* GeoLift experiments
+* Incrementality testing framework
+* Customer Journey Analytics
+* Agent-based marketing simulations
+
+```
+```
